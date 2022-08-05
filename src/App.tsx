@@ -1,26 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Admin, Resource } from 'react-admin'
+import { EventList, EventEdit } from './components/events'
+import fakeDataProvider from 'ra-data-fakerest';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const dataProvider = fakeDataProvider({
+  events: [
+    {
+      id: '1',
+      type: 'mixpanel',
+      eventName: 'WorkerMyJobsPage.Landed',
+    },
+    {
+      id: '2',
+      type: 'mixpanel',
+      eventName: 'WorkerMyJobsPage.Viewed',
+      description: 'Desc goes here'
+    },
+    {
+      id: '3',
+      type: 'mixpanel',
+      eventName: 'BrowsePage.Landed',
+      description: 'Desc goes here'
+    }
+  ]
+})
+
+const App = () => (
+  <Admin dataProvider={dataProvider}>
+    <Resource name="events" list={EventList} edit={EventEdit} />
+  </Admin>
+)
 
 export default App;
